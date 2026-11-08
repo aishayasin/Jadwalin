@@ -1,0 +1,373 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgendaKu - Agenda Organisasi Mahasiswa</title>
+    <link rel="stylesheet" href="halaman.css">
+</head>
+<body>
+
+    <!-- HALAMAN LOGIN -->
+    <section id="halamanLogin" class="halaman-login">
+        <div class="panel-login-kiri">
+            <div class="logo-login">JADWALIN</div>
+            
+<div class="logo-aplikasi">
+    <img src="LOGOJADWALIN.jpeg" alt="Logo JADWALIN">
+</div>
+
+            <div class="ilustrasi-login"></div>
+            <h2>Agenda Organisasi Mahasiswa</h2>
+            <p>Kelola kegiatan organisasi dengan lebih mudah, terstruktur, dan efisien.</p>
+        </div>
+
+        <div class="panel-login-kanan">
+            <div class="form-login">
+                <p class="label-atas">APLIKASI AGENDA ORGANISASI</p>
+                <h1>Selamat Datang!</h1>
+                <p>Silakan masuk untuk melanjutkan.</p>
+
+                <form id="formLogin">
+                    <label for="namaPengguna">Nama pengguna</label>
+                    <input type="text" id="namaPengguna"
+                           placeholder="Masukkan nama pengguna" required>
+
+                    <label for="kataSandi">Kata sandi</label>
+                    <input type="password" id="kataSandi"
+                           placeholder="Masukkan kata sandi" required>
+
+                    <label for="jenisAkun">Masuk sebagai</label>
+                    <select id="jenisAkun">
+                        <option value="admin">Admin</option>
+                        <option value="anggota">Anggota</option>
+                    </select>
+
+                    <button type="submit" class="tombol tombol-biru tombol-penuh">
+                        Masuk
+                    </button>
+
+                    <p id="pesanLogin" class="pesan"></p>
+                </form>
+
+                <small>Demo aplikasi AgendaKu</small>
+            </div>
+        </div>
+    </section>
+
+    <!-- APLIKASI UTAMA -->
+    <div id="aplikasi" class="aplikasi tersembunyi">
+
+        <!-- MENU SAMPING -->
+        <aside class="sidebar">
+            <div class="logo"> AgendaKu</div>
+
+            <div class="profil-samping">
+                <div class="avatar" id="inisialPengguna">A</div>
+                <div>
+                    <strong id="namaTampilan">Admin</strong>
+                    <p id="peranTampilan">Admin</p>
+                </div>
+            </div>
+
+            <nav id="menuNavigasi"></nav>
+
+            <button class="tombol-keluar" onclick="keluarAplikasi()">
+                ⇥ Keluar
+            </button>
+        </aside>
+
+        <!-- KONTEN -->
+        <main class="konten">
+            <header class="header-atas">
+                <div>
+                    <p class="label-atas">APLIKASI AGENDA ORGANISASI MAHASISWA</p>
+                    <h1 id="judulHalaman">Dashboard</h1>
+                    <p id="deskripsiHalaman">Ringkasan informasi kegiatan organisasi.</p>
+                </div>
+
+                <div class="info-pengguna">
+                    <span>●</span>
+                    <div>
+                        <strong id="namaHeader">Admin</strong>
+                        <p id="peranHeader">Administrator</p>
+                    </div>
+                </div>
+            </header>
+
+            <!-- DASHBOARD -->
+            <section id="halamanDashboard" class="halaman-konten">
+                <h2>Ringkasan Kegiatan</h2>
+                <p class="teks-redup">Informasi terbaru agenda organisasi mahasiswa.</p>
+
+                <div class="kartu-ringkasan">
+                    <div class="kartu angka-hijau">
+                        <span>Direncanakan</span>
+                        <h2 id="jumlahDirencanakan">0</h2>
+                    </div>
+                    <div class="kartu angka-jingga">
+                        <span>Berlangsung</span>
+                        <h2 id="jumlahBerlangsung">0</h2>
+                    </div>
+                    <div class="kartu angka-biru">
+                        <span>Selesai</span>
+                        <h2 id="jumlahSelesai">0</h2>
+                    </div>
+                    <div class="kartu angka-merah">
+                        <span>Batal</span>
+                        <h2 id="jumlahBatal">0</h2>
+                    </div>
+                </div>
+
+                <div class="kartu panel">
+                    <div class="judul-panel">
+                        <div>
+                            <h2>Kegiatan Organisasi</h2>
+                            <p class="teks-redup">Daftar agenda yang tersedia.</p>
+                        </div>
+
+                        <button class="tombol tombol-biru khusus-admin"
+                                onclick="bukaHalaman('kegiatan')">
+                            + Tambah Kegiatan
+                        </button>
+                    </div>
+
+                    <div class="tabel-bungkus">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nama Kegiatan</th>
+                                    <th>Tanggal</th>
+                                    <th>Lokasi</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabelDashboard"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- KELOLA KEGIATAN -->
+            <section id="halamanKegiatan" class="halaman-konten tersembunyi">
+                <div class="kartu panel">
+                    <div class="judul-panel">
+                        <div>
+                            <h2>Daftar Kegiatan</h2>
+                            <p class="teks-redup">Kelola agenda organisasi mahasiswa.</p>
+                        </div>
+
+                        <button class="tombol tombol-biru"
+                                onclick="tampilkanFormKegiatan()">
+                            + Tambah Kegiatan
+                        </button>
+                    </div>
+
+                    <input type="text" id="cariKegiatan"
+                           placeholder="Cari nama kegiatan..."
+                           oninput="tampilkanKegiatan()">
+
+                    <div id="formKegiatan" class="form-data tersembunyi">
+                        <h3 id="judulFormKegiatan">Tambah Kegiatan</h3>
+
+                        <form id="formDataKegiatan">
+                            <input type="hidden" id="idKegiatan">
+
+                            <label>Nama kegiatan</label>
+                            <input type="text" id="namaKegiatan" required>
+
+                            <div class="dua-kolom">
+                                <div>
+                                    <label>Tanggal</label>
+                                    <input type="date" id="tanggalKegiatan" required>
+                                </div>
+                                <div>
+                                    <label>Waktu</label>
+                                    <input type="time" id="waktuKegiatan" required>
+                                </div>
+                            </div>
+
+                            <label>Lokasi</label>
+                            <input type="text" id="lokasiKegiatan" required>
+
+                            <label>Penanggung jawab</label>
+                            <input type="text" id="picKegiatan" required>
+
+                            <label>Status kegiatan</label>
+                            <select id="statusKegiatan">
+                                <option>Direncanakan</option>
+                                <option>Berlangsung</option>
+                                <option>Selesai</option>
+                                <option>Batal</option>
+                            </select>
+
+                            <label>Deskripsi</label>
+                            <textarea id="deskripsiKegiatan" rows="3"></textarea>
+
+                            <div class="aksi-form">
+                                <button type="button" class="tombol tombol-abu"
+                                        onclick="tutupFormKegiatan()">Batal</button>
+                                <button type="submit" class="tombol tombol-biru">
+                                    Simpan Kegiatan
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="tabel-bungkus">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nama Kegiatan</th>
+                                    <th>Tanggal</th>
+                                    <th>Lokasi</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabelKegiatan"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- KELOLA ANGGOTA -->
+            <section id="halamanAnggota" class="halaman-konten tersembunyi">
+                <div class="kartu panel">
+                    <div class="judul-panel">
+                        <div>
+                            <h2>Data Anggota</h2>
+                            <p class="teks-redup">Daftar anggota organisasi mahasiswa.</p>
+                        </div>
+                        <button class="tombol tombol-biru"
+                                onclick="tampilkanFormAnggota()">
+                            + Tambah Anggota
+                        </button>
+                    </div>
+
+                    <div id="formAnggota" class="form-data tersembunyi">
+                        <h3>Tambah Anggota</h3>
+                        <form id="formDataAnggota">
+                            <label>Nama anggota</label>
+                            <input type="text" id="namaAnggota" required>
+
+                            <label>Nomor induk mahasiswa</label>
+                            <input type="text" id="nimAnggota" required>
+
+                            <label>Jabatan</label>
+                            <input type="text" id="jabatanAnggota" required>
+
+                            <div class="aksi-form">
+                                <button type="button" class="tombol tombol-abu"
+                                        onclick="document.getElementById('formAnggota').classList.add('tersembunyi')">
+                                    Batal
+                                </button>
+                                <button class="tombol tombol-biru" type="submit">
+                                    Simpan Anggota
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="tabel-bungkus">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nama</th>
+                                    <th>NIM</th>
+                                    <th>Jabatan</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabelAnggota"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- KALENDER -->
+            <section id="halamanKalender" class="halaman-konten tersembunyi">
+                <div class="kartu panel">
+                    <h2>Kalender Kegiatan</h2>
+                    <p class="teks-redup">Jadwal kegiatan berdasarkan tanggal.</p>
+                    <label>Pilih tanggal</label>
+                    <input type="date" id="filterTanggal" onchange="tampilkanKalender()">
+                    <div id="daftarKalender" class="daftar-kalender"></div>
+                </div>
+            </section>
+
+            <!-- LAPORAN -->
+            <section id="halamanLaporan" class="halaman-konten tersembunyi">
+                <div class="kartu-ringkasan">
+                    <div class="kartu angka-biru">
+                        <span>Total Kegiatan</span>
+                        <h2 id="totalLaporan">0</h2>
+                    </div>
+                    <div class="kartu angka-hijau">
+                        <span>Total Anggota</span>
+                        <h2 id="totalAnggotaLaporan">0</h2>
+                    </div>
+                    <div class="kartu angka-jingga">
+                        <span>Total Peserta</span>
+                        <h2 id="totalPeserta">0</h2>
+                    </div>
+                    <div class="kartu angka-merah">
+                        <span>Kegiatan Batal</span>
+                        <h2 id="totalBatalLaporan">0</h2>
+                    </div>
+                </div>
+
+                <div class="kartu panel">
+                    <h2>Laporan Kegiatan</h2>
+                    <p class="teks-redup">Rekap kegiatan berdasarkan status.</p>
+
+                    <div class="tabel-bungkus">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nama Kegiatan</th>
+                                    <th>Tanggal</th>
+                                    <th>Penanggung Jawab</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabelLaporan"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PENGATURAN -->
+            <section id="halamanPengaturan" class="halaman-konten tersembunyi">
+                <div class="kartu panel">
+                    <h2>Pengaturan Profil</h2>
+                    <p class="teks-redup">Atur informasi akun yang sedang digunakan.</p>
+
+                    <form id="formPengaturan">
+                        <label>Nama pengguna</label>
+                        <input type="text" id="pengaturanNama" required>
+
+                        <label>Peran akun</label>
+                        <input type="text" id="pengaturanPeran" disabled>
+
+                        <button class="tombol tombol-biru" type="submit">
+                            Simpan Perubahan
+                        </button>
+                    </form>
+
+                    <hr>
+                    <button class="tombol tombol-abu" onclick="keluarAplikasi()">
+                        Keluar dari Akun
+                    </button>
+                </div>
+            </section>
+
+            <footer>© 2026 AgendaKu — Aplikasi Agenda Organisasi Mahasiswa</footer>
+        </main>
+    </div>
+
+    <script src="halaman.js"></script>
+</body>
+</html>
+
